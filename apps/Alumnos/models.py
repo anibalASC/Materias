@@ -1,12 +1,19 @@
 from django.db import models
 
-
 # Create your models here.
-class Alumnos(models.Model):
-    nombre = models.CharField(max_length=200, help_text = 'Nombre(s)')
-    a_paterno = models.CharField(max_length=200, help_text = 'Apellido Paterno')
-    a_materno =  models.CharField(max_length=200, help_text = 'Apellido Materno')
-    f_nacimiento = models.DateTimeField(blank=True, null=True, help_text = 'Fecha de nacimiento')
 
-    def __srt__(self):
-        return self.titles
+class Materia(models.Model):
+    id = models.AutoField(primary_key = True)
+    nombre = models.CharField(max_length=150) 
+
+class Maestro(models.Model):
+    id = models.AutoField(primary_key = True)
+    nombre = models.CharField(max_length=250)
+    materia = models.ForeignKey(Materia, on_delete = models.CASCADE)
+
+class Alumno(models.Model):
+    id = models.AutoField(primary_key = True)
+    nombre = models.CharField(max_length=200)
+    apellido = models.CharField(max_length=200)
+    edad = models.IntegerField()
+    maestro = models.ForeignKey(Maestro, on_delete = models.CASCADE)
